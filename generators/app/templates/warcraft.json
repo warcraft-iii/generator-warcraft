@@ -1,0 +1,8 @@
+{
+    "game_path": <%- JSON.stringify(game_path) %>,
+    "build": <%- JSON.stringify(build) %>,
+    "warcraft": <%- JSON.stringify(warcraft) %>,
+    "world_editor": <%- JSON.stringify(world_editor) %>,
+    "file_name": "_map.w3x",
+    "map_folder": "map.w3x"
+}

@@ -49,13 +49,13 @@ module.exports = class extends Generator {
     writing() {
         const copy = f =>
             this.fs.copy(
-                this.templatePath(f),
+                this.templatePath(f.replace(/^\./g, '_')),
                 this.destinationPath(path.join(this.context.name, f))
             );
 
         const copyTpl = f =>
             this.fs.copyTpl(
-                this.templatePath(f),
+                this.templatePath(f.replace(/^\./g, '_')),
                 this.destinationPath(path.join(this.context.name, f)),
                 this.context
             );
