@@ -1,0 +1,14 @@
+{
+    "name": <%- JSON.stringify(name) %>,
+	"displayName": <%- JSON.stringify(name) %>,
+	"description": <%- JSON.stringify(name) %>,
+    "version": "0.0.1",
+    "scripts": {
+        "start": "node tools rungame -m -p",
+        "dev": "node tools worldeditor"
+    },
+    "dependencies": {
+        "mz": "^2.7.0",
+        "commander": "^2.20.0"
+    }
+}
