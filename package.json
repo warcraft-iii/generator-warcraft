@@ -1,6 +1,6 @@
 {
   "name": "generator-warcraft",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A Warcraft III map cli",
   "homepage": "https://github.com/warcraft-iii/generator-warcraft.git",
   "author": {
