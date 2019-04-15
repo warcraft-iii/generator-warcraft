@@ -70,6 +70,6 @@
     "pretest": "eslint .",
     "test": "jest"
   },
-  "repository": "Warcraft III/generator-warcraft",
+  "repository": "https://github.com/warcraft-iii/generator-warcraft.git",
   "license": "MIT"
 }
