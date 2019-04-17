@@ -9,6 +9,7 @@
 const path = require('path');
 const cp = require('mz/child_process');
 const fs = require('mz/fs');
+const mkdirp = require('mkdirp');
 
 async function getDocPath() {
     let result = (await cp.exec(
@@ -19,9 +20,7 @@ async function getDocPath() {
     if (!m) {
         return;
     }
-    return m[1].replace(/%([^%]+)%/g, (_, x)=> {
-        return process.env[x];
-    });
+    return m[1].replace(/%([^%]+)%/g, (_, x) => process.env[x]);
 }
 
 async function main() {
@@ -36,6 +35,7 @@ async function main() {
         ? process.env.npm_package_config_GAME_CMDLINE.split(' ')
         : [];
 
+    await mkdirp(path.dirname(target));
     await fs.copyFile(fileName, target);
     cp.spawn(exec, [...cmdLines, '-loadfile', target], {
         detached: true
