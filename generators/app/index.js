@@ -13,29 +13,29 @@ module.exports = class extends Generator {
         const prompts = [
             {
                 type: 'input',
-                name: 'name',
+                name: 'PKG_NAME',
                 message: 'What`s your package name?'
             },
             {
                 type: 'input',
-                name: 'game_path',
+                name: 'GAME_PATH',
                 message: 'Warcraft III Game Path'
             },
             {
                 type: 'list',
-                name: 'build',
+                name: 'GAME_BUILD',
                 message: 'Warcraft III build',
                 choices: ['x86_64', 'x86']
             },
             {
                 type: 'input',
-                name: 'warcraft',
+                name: 'GAME_EXE',
                 message: 'Warcraft III Execution',
                 default: 'Warcraft III.exe'
             },
             {
                 type: 'input',
-                name: 'world_editor',
+                name: 'WE_EXE',
                 message: 'Warcraft III World Editor Execution',
                 default: 'World Editor.exe'
             }
@@ -43,20 +43,22 @@ module.exports = class extends Generator {
 
         return this.prompt(prompts).then(props => {
             this.context = props;
+            this.outputPath = this.context.PKG_NAME;
         });
     }
 
     writing() {
+        const convert = f => f.replace(/^\./g, '_.');
         const copy = f =>
             this.fs.copy(
-                this.templatePath(f.replace(/^\./g, '_')),
-                this.destinationPath(path.join(this.context.name, f))
+                this.templatePath(convert(f)),
+                this.destinationPath(path.join(this.outputPath, f))
             );
 
         const copyTpl = f =>
             this.fs.copyTpl(
-                this.templatePath(f.replace(/^\./g, '_')),
-                this.destinationPath(path.join(this.context.name, f)),
+                this.templatePath(convert(f)),
+                this.destinationPath(path.join(this.outputPath, f)),
                 this.context
             );
 
@@ -66,11 +68,10 @@ module.exports = class extends Generator {
         copy('.editorconfig');
         copy('.gitignore');
         copyTpl('package.json');
-        copyTpl('warcraft.json');
     }
 
     install() {
-        process.chdir(this.context.name);
+        process.chdir(this.outputPath);
 
         this.installDependencies({
             npm: true,

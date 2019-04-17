@@ -1,14 +1,32 @@
 {
-    "name": <%- JSON.stringify(name) %>,
-	"displayName": <%- JSON.stringify(name) %>,
-	"description": <%- JSON.stringify(name) %>,
-    "version": "0.0.1",
-    "scripts": {
-        "start": "node tools rungame -m -p",
-        "dev": "node tools worldeditor"
-    },
-    "dependencies": {
-        "mz": "^2.7.0",
-        "commander": "^2.20.0"
-    }
+  "name": <%- JSON.stringify(PKG_NAME) %>,
+	"displayName": <%- JSON.stringify(PKG_NAME) %>,
+	"description": <%- JSON.stringify(PKG_NAME) %>,
+  "version": "0.0.1",
+  "private": true,
+  "os": [
+    "win32"
+  ],
+  "scripts": {
+    "dev-merge": "node ./tools/merge.js",
+    "dev-pack": "node ./tools/pack.js",
+    "run-game": "npm run dev-merge && npm run dev-pack && node ./tools/game.js",
+    "run-we": "node ./tools/we.js"
+  },
+  "dependencies": {
+    "mz": "^2.7.0"
+  },
+  "devDependencies": {
+    "warcraft-mergescripts": "0.0.6",
+    "warcraft-pack": "0.0.6"
+  },
+  "config": {
+    "GAME_PATH": <%- JSON.stringify(GAME_PATH) %>,
+    "GAME_BUILD": <%- JSON.stringify(GAME_BUILD) %>,
+    "GAME_EXE": <%- JSON.stringify(GAME_EXE) %>,
+    "GAME_CMDLINE": "-locale enUS",
+    "WE_EXE": <%- JSON.stringify(WE_EXE) %>,
+    "WE_CMDLINE": "-locale enUS",
+    "MAP_PKG_PATH": "map.w3x"
+  }
 }
