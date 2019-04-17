@@ -19,7 +19,9 @@ async function getDocPath() {
     if (!m) {
         return;
     }
-    return m[1];
+    return m[1].replace(/%([^%]+)%/g, (_, x)=> {
+        return process.env[x];
+    });
 }
 
 async function main() {
