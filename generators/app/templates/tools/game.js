@@ -24,6 +24,9 @@ async function getDocPath() {
 }
 
 async function main() {
+    await require('./merge');
+    await require('./pack');
+
     const fileName = `_${process.env.npm_package_config_MAP_PKG_PATH}`;
     const target = path.join(await getDocPath(), 'Warcraft III/Maps/Test', fileName);
     const exec = path.join(
@@ -37,10 +40,7 @@ async function main() {
 
     await mkdirp(path.dirname(target));
     await fs.copyFile(fileName, target);
-    cp.spawn(exec, [...cmdLines, '-loadfile', target], {
-        detached: true
-    });
-    process.exit(0);
+    cp.spawn(exec, [...cmdLines, '-loadfile', target]);
 }
 
 main();

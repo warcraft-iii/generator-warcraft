@@ -8,10 +8,10 @@
     "win32"
   ],
   "scripts": {
-    "dev-merge": "node ./tools/merge.js",
-    "dev-pack": "node ./tools/pack.js",
-    "run-game": "npm run dev-merge && npm run dev-pack && node ./tools/game.js",
-    "run-we": "node ./tools/we.js"
+    "merge": "node ./tools/merge.js",
+    "pack": "node ./tools/pack.js",
+    "dev-game": "node ./tools/game.js",
+    "dev-we": "node ./tools/we.js"
   },
   "dependencies": {
     "mkdirp": "^0.5.1",

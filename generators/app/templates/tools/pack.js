@@ -6,7 +6,7 @@
  * @Date   : 4/17/2019, 4:26:53 PM
  */
 
-require('warcraft-pack').run(
+module.exports = require('warcraft-pack').run(
     process.env.npm_package_config_MAP_PKG_PATH,
     `_${process.env.npm_package_config_MAP_PKG_PATH}`
 );

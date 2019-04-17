@@ -127,6 +127,7 @@ module.exports = class extends Generator {
                 this.context
             );
 
+        copy('.vscode');
         copy('map.w3x');
         copy('src');
         copy('tools');

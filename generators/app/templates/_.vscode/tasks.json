@@ -1,0 +1,19 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "dev-game",
+      "presentation": {
+        "reveal": "never"
+      }
+    },
+    {
+      "type": "npm",
+      "script": "dev-we",
+      "presentation": {
+        "reveal": "never"
+      }
+    }
+  ]
+}
