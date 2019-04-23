@@ -27,62 +27,23 @@ module.exports = class extends Generator {
             {
                 type: 'input',
                 name: 'GAME_PATH',
-                message: 'Warcraft III Game Path',
+                message: 'Where is Warcraft III Execution?',
                 validate(input) {
                     return fs.existsSync(input) ? true : 'Need Warcraft III';
                 }
             },
             {
                 type: 'list',
-                name: 'GAME_BUILD',
-                message: 'Warcraft III build',
+                name: 'WE_PATH',
+                message: 'Where is World Editor Execution',
                 choices(answers) {
-                    return fs
-                        .readdirSync(answers.GAME_PATH)
-                        .filter(f => f.match(/[86|64]/))
-                        .filter(f =>
-                            fs
-                                .statSync(path.join(answers.GAME_PATH, f))
-                                .isDirectory()
-                        );
-                }
-            },
-            {
-                type: 'list',
-                name: 'GAME_EXE',
-                message: 'Warcraft III Execution',
-                default: 'Warcraft III.exe',
-                choices(answers) {
-                    const gameDir = path.join(
-                        answers.GAME_PATH,
-                        answers.GAME_BUILD
-                    );
-                    return fs
-                        .readdirSync(gameDir)
-                        .filter(f => path.extname(f).toLowerCase() === '.exe')
-                        .filter(f => f.match(/warcraft/i))
-                        .filter(f =>
-                            fs.statSync(path.join(gameDir, f)).isFile()
-                        );
-                }
-            },
-            {
-                type: 'list',
-                name: 'WE_EXE',
-                message: 'Warcraft III World Editor Execution',
-                default: 'World Editor.exe',
-                choices(answers) {
-                    const gameDir = path.join(
-                        answers.GAME_PATH,
-                        answers.GAME_BUILD
-                    );
+                    const gameDir = path.dirname(answers.GAME_PATH);
                     return fs
                         .readdirSync(gameDir)
                         .filter(f => path.extname(f).toLowerCase() === '.exe')
                         .filter(f => f.match(/editor/i))
-                        .filter(f =>
-                            fs.statSync(path.join(gameDir, f)).isFile()
-                        );
+                        .filter(f => fs.statSync(path.join(gameDir, f)).isFile())
+                        .map(f => ({ name: f, value: path.join(gameDir, f) }));
                 }
             }
         ];
@@ -104,45 +65,37 @@ module.exports = class extends Generator {
                         props[prompt.name] !== prompt.old_default &&
                         props[prompt.name] !== prompt.default
                 )
-                .forEach(prompt =>
-                    this.config.set(prompt.name, props[prompt.name])
-                );
+                .forEach(prompt => this.config.set(prompt.name, props[prompt.name]));
 
             this.config.save();
         });
     }
 
     writing() {
-        const convert = f => f.replace(/^\./g, '_.');
-        const copy = f =>
-            this.fs.copy(
-                this.templatePath(convert(f)),
-                this.destinationPath(path.join(this.outputPath, f))
-            );
+        const copy = (to, from) =>
+            this.fs.copy(this.templatePath(from || to), this.destinationPath(path.join(this.outputPath, to)));
 
-        const copyTpl = f =>
+        const copyTpl = (to, from) =>
             this.fs.copyTpl(
-                this.templatePath(convert(f)),
-                this.destinationPath(path.join(this.outputPath, f)),
+                this.templatePath(from || to),
+                this.destinationPath(path.join(this.outputPath, to)),
                 this.context
             );
 
-        copy('.vscode');
         copy('map.w3x');
         copy('src');
-        copy('tools');
-        copy('.editorconfig');
-        copy('.gitignore');
-        copyTpl('package.json');
+        copy('.editorconfig', '_.editorconfig');
+        copy('.gitignore', '_.gitignore');
+        copyTpl('warcraft.json');
     }
 
     install() {
         process.chdir(this.outputPath);
 
-        this.installDependencies({
-            npm: true,
-            bower: false
-        });
+        // this.installDependencies({
+        //     npm: true,
+        //     bower: false
+        // });
     }
 
     end() {
