@@ -1,5 +1,5 @@
 # generator-warcarft
-> A Warcraft III map cli
+> A Warcraft III map develop project cli
 
 ## Installation
 

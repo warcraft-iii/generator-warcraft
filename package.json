@@ -1,7 +1,7 @@
 {
   "name": "generator-warcraft",
   "version": "0.0.8",
-  "description": "A Warcraft III map cli",
+  "description": "A Warcraft III map develop project cli",
   "homepage": "https://github.com/warcraft-iii/generator-warcraft.git",
   "author": {
     "name": "Dencer",
