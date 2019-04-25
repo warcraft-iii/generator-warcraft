@@ -86,7 +86,8 @@ module.exports = class extends Generator {
         copy('src');
         copy('.editorconfig', '_.editorconfig');
         copy('.gitignore', '_.gitignore');
-        copyTpl('warcraft.json');
+        copy('warcraft.json');
+        copyTpl('.vscode/settings.json', '_.vscode/settings.json');
     }
 
     install() {

@@ -1,0 +1,7 @@
+{
+  "warcraft.gamePath": <%- JSON.stringify(GAME_PATH) %>,
+  "warcraft.wePath": <%- JSON.stringify(WE_PATH) %>,
+  "warcraft.gameArgs": ["-locale", "enUS", "-windowmode", "windowed"],
+  "warcraft.weArgs": ["-locale", "enUS"],
+  "warcraft.allowAddSshLibrary": false
+}
