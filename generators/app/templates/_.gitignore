@@ -1,4 +1,5 @@
 /_warcraft_vscode_test.w3x
 /.vscode/settings.json
 /map.w3x/war3map.lua
+/.build
 node_modules/
